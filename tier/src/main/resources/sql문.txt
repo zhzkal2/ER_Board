@@ -1,0 +1,19 @@
+sql문
+
+CREATE DATABASE er;
+
+USE er;
+
+
+CREATE TABLE PlayerStats (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    rp FLOAT NOT NULL,
+    pickRate FLOAT NOT NULL,
+    winRate FLOAT NOT NULL,
+    top3Rate FLOAT NOT NULL,
+    averageRank FLOAT NOT NULL,
+    damage INT NOT NULL,
+    tk FLOAT NOT NULL,
+    monsterKill FLOAT NOT NULL
+);
