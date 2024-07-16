@@ -1,0 +1,18 @@
+/* 이미지를 둥글게 만들기 */
+.image-container {
+    width: 100px;
+    height: 100px; /* 이미지 높이 조정 */
+    overflow: hidden; /* 이미지를 컨테이너 내에 잘라내도록 설정 */
+    border-radius: 100%; /* 둥글게 만드는 CSS 속성 */
+}
+
+.image-container img {
+    width: 100%; /* 이미지를 컨테이너 크기에 맞게 설정 */
+    height: 100%; /* 비율에 맞게 이미지 높이 자동 조정 */
+    display: block; /* 이미지를 블록 요소로 설정하여 여백 제거 */
+    border-radius: 100%; /* 이미지를 둥글게 만들기 */
+}
+
+.waepon {
+    background-color: black;
+}
