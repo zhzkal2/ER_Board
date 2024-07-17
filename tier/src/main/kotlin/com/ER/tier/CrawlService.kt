@@ -1,31 +1,50 @@
 package com.ER.tier
 
-import org.jsoup.Jsoup
+import org.openqa.selenium.By
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.chrome.ChromeDriver
 import org.springframework.stereotype.Service
 
 @Service
 class CrawlService {
-    fun crawlWebsite(url: String): List<String> {
-        val result = mutableListOf<String>()
-        val doc = Jsoup.connect(url).get()
-        val tbody = doc.select("th")
-        result.add("HTML Content:")
-        result.add(tbody.outerHtml())
 
-//
-//        for (tableBody  in tbody) {
-//            val rows = tableBody.select("tr") // tbody 내부의 tr 태그 선택
-//            for (row in rows) {
-//                // 각 tr 태그의 class 속성을 result에 추가
-//                val className = row.className()
-//                result.add("Class: $className")
-//
-//                val cells = row.select("td, th") // tr 내부의 td와 th 태그 선택
-//                val cellData = cells.joinToString(separator = " | ") { it.text() }
-//                result.add("Row: $cellData")
-//            }
-//
-//        }
+    fun crawlWebsite(url: String): List<String> {
+        System.setProperty("webdriver.chrome.driver", "C:\\spring\\tier\\driver\\chromedriver.exe");
+
+
+        // 웹 드라이버 초기화
+        val driver: WebDriver = ChromeDriver()
+        val result = mutableListOf<String>()
+
+        try {
+            driver.get(url)
+
+            // 모든 tr 태그 가져오기
+            val rows = driver.findElements(By.tagName("tr"))
+
+            for (row in rows) {
+                // tr 내의 텍스트 가져오기
+                val text = row.text
+
+                // 화살표 이미지 찾기
+                val arrowImg = row.findElements(By.tagName("img"))
+                    .firstOrNull { it.getAttribute("alt").contains("arrow", ignoreCase = true) }
+
+                // 화살표 alt 가져오기
+                val arrowAlt = arrowImg?.getAttribute("alt") ?: "No arrow"
+                result.add("$text: $arrowAlt") // 포맷팅하여 추가
+
+
+
+//                // 결과 리스트에 추가
+//                result.add(Pair(text, arrowAlt))
+            }
+        } finally {
+            driver.quit()
+        }
+
+
         return result
     }
+
 }

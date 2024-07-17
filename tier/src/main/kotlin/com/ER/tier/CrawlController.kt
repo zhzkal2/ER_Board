@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class WebCrawlController(private val CrawlService: CrawlService) {
 
+
+
+
     @GetMapping("/crawl")
     fun crawl(@RequestParam url: String): List<String> {
         return try {
